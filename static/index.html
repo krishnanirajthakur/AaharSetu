@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AaharSetu | AI Nutritional Guide</title>
+    <title>AaharSetu Phase 2 | Contextual AI Nutrition Guide</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#10b981">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,17 +39,15 @@
         }
     </script>
     
-    <!-- Markdown parser (marked.js) -->
+    <!-- Markdown parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
-        /* Glass panel */
         .glass-panel {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -57,40 +55,24 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
 
-        /* Message styling for markdown */
         .msg-content h3 { font-weight: 600; margin-top: 0.5rem; margin-bottom: 0.25rem; color: #064e3b; font-size: 0.95rem; }
         .msg-content p { margin-bottom: 0.5rem; line-height: 1.5; color: #334155; }
         .msg-content p:last-child { margin-bottom: 0; }
         .msg-content ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.5rem; color: #334155;}
         .msg-content strong { color: #0f172a; }
 
-        .image-preview-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
+        .image-preview-wrapper { position: relative; display: inline-block; }
         .remove-image-btn {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 14px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border-radius: 50%; width: 22px; height: 22px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             transition: transform 0.2s;
         }
-        .remove-image-btn:hover {
-            transform: scale(1.1);
-        }
-        
+        .remove-image-btn:hover { transform: scale(1.1); }
         textarea:focus { outline: none; }
+
+        /* Phase 2: Dashboard */
+        .dashboard-item { @apply flex items-center gap-2 text-sm font-medium text-slate-700 p-2 rounded-xl bg-white/80 backdrop-blur-sm border border-slate-100/50 transition-all hover:shadow-md; }
+        .quick-btn { @apply flex-1 bg-gradient-to-r from-brand-500 to-emerald-500 text-white py-2.5 px-4 rounded-xl font-medium text-sm shadow-lg hover:shadow-xl hover:from-brand-600 transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 aria-pressed:scale-95; }
     </style>
 </head>
 <body class="bg-gradient-to-br from-brand-50 via-green-50 to-emerald-100 min-h-screen text-slate-800 flex justify-center items-center md:p-4 overflow-hidden relative selection:bg-brand-200">
@@ -113,18 +95,42 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg text-slate-800 leading-tight">AaharSetu</h1>
-                    <p class="text-[11px] text-brand-600 font-semibold tracking-wide uppercase">AI Nutritionist</p>
+                    <h1 class="font-bold text-lg text-slate-800 leading-tight">AaharSetu Phase 2</h1>
+                    <p class="text-[11px] text-brand-600 font-semibold tracking-wide uppercase">Contextual Nutritionist</p>
                 </div>
             </div>
-            <button id="installBtn" class="hidden text-[13px] bg-slate-800 text-white px-3.5 py-1.5 rounded-full font-medium hover:bg-slate-700 transition-colors shadow-sm focus:ring-2 focus:ring-offset-1 focus:ring-slate-800">
+            <button id="installBtn" class="hidden text-[13px] bg-slate-800 text-white px-3.5 py-1.5 rounded-full font-medium hover:bg-slate-700 transition-colors shadow-sm focus:ring-2 focus:ring-offset-1 focus:ring-slate-800" aria-label="Install PWA">
                 Install App
             </button>
         </header>
 
+        <!-- Phase 2: Context Dashboard -->
+        <section id="contextDashboard" class="p-3 border-b border-white/30 bg-gradient-to-r from-brand-50/80 to-emerald-50/80 backdrop-blur-sm" aria-label="Context Dashboard" role="region">
+            <h2 class="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2 px-1">Context</h2>
+            <div id="dashboardItems" class="grid grid-cols-2 gap-2">
+                <!-- Dynamic: weather, time -->
+            </div>
+        </section>
+
+        <!-- Phase 2: Quick Actions -->
+        <section class="p-3 border-b border-white/30 bg-white/60 backdrop-blur-sm" aria-label="Quick Actions" role="toolbar">
+            <h3 class="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-3 px-1">Quick Actions</h3>
+            <div class="grid grid-cols-3 gap-2">
+                <button onclick="quickAction('hydration')" class="quick-btn" aria-label="Hydration Check">
+                    💧 Hydration
+                </button>
+                <button onclick="quickAction('spots')" class="quick-btn" aria-label="Nearby Healthy Spots">
+                    📍 Spots
+                </button>
+                <button onclick="quickAction('budget')" class="quick-btn" aria-label="Budget Meals">
+                    💰 Budget
+                </button>
+            </div>
+        </section>
+
         <!-- Chat Area -->
         <div id="chatBox" class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 scroll-smooth">
-            <!-- Welcome Message -->
+            <!-- Welcome Message Phase 2 -->
             <div class="flex gap-2 max-w-[90%] self-start animate-fade-in group">
                 <div class="h-8 w-8 rounded-full bg-gradient-to-tr from-brand-500 to-emerald-400 flex-shrink-0 flex items-center justify-center text-white shadow-sm self-end mb-1">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -132,19 +138,17 @@
                     </svg>
                 </div>
                 <div class="bg-white px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm border border-slate-100 text-[14px] leading-relaxed text-slate-700 bg-opacity-90">
-                    <p>Namaste! ✨ I am AaharSetu. Upload a photo of your meal or type what you ate, and I'll estimate the calories and offer a healthy swap. 🥗</p>
+                    <p>Phase 2 Live! 🌟 Context-aware nudges, nearby healthy spots, Maharashtrian nutrition expertise. Ask for food options! 🥘</p>
                 </div>
             </div>
         </div>
 
         <!-- Input Area -->
         <div class="p-3 bg-white/70 border-t border-white/60 backdrop-blur-xl">
-            
-            <!-- Image Preview Area -->
             <div id="imagePreviewContainer" class="hidden mb-3 px-1 transition-all origin-bottom transform duration-300">
                 <div class="image-preview-wrapper inline-block">
-                    <img id="imagePreview" src="" alt="Selected food" class="h-20 w-20 object-cover rounded-xl border-2 border-brand-200 shadow-sm">
-                    <div id="removeImageBtn" class="remove-image-btn" aria-label="Remove image">
+                    <img id="imagePreview" src="" alt="Selected food image" class="h-20 w-20 object-cover rounded-xl border-2 border-brand-200 shadow-sm">
+                    <div id="removeImageBtn" class="remove-image-btn" aria-label="Remove selected image">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" /></svg>
                     </div>
                 </div>
@@ -152,8 +156,7 @@
 
             <form id="chatForm" class="flex gap-2 items-end relative">
                 <div class="relative flex-1 bg-white rounded-3xl border border-slate-200 shadow-inner focus-within:ring-2 focus-within:ring-brand-500/20 focus-within:border-brand-400 transition-all flex items-center pl-2 pr-1 py-1">
-                    
-                    <label for="imageInput" class="p-2 text-slate-400 hover:text-brand-500 hover:bg-brand-50 rounded-full cursor-pointer transition-colors flex-shrink-0" title="Attach an image">
+                    <label for="imageInput" class="p-2 text-slate-400 hover:text-brand-500 hover:bg-brand-50 rounded-full cursor-pointer transition-colors flex-shrink-0" title="Upload food photo" aria-label="Upload image">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -163,13 +166,13 @@
                     <textarea 
                         id="textInput" 
                         rows="1"
-                        placeholder="Message AaharSetu..." 
+                        placeholder="Describe your meal or ask for recommendations..." 
                         class="w-full bg-transparent border-0 focus:ring-0 resize-none text-[15px] px-2 py-2.5 max-h-24 outline-none placeholder-slate-400"
                         oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
                     ></textarea>
                 </div>
                 
-                <button type="submit" id="sendBtn" class="bg-brand-500 text-white p-3.5 rounded-full hover:bg-brand-600 transition-all transform active:scale-95 shadow-lg shadow-brand-500/30 flex-shrink-0 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                <button type="submit" id="sendBtn" class="bg-brand-500 text-white p-3.5 rounded-full hover:bg-brand-600 transition-all transform active:scale-95 shadow-lg shadow-brand-500/30 flex-shrink-0 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none" aria-label="Send message">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 translate-x-px translate-y-[-1px]" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                     </svg>

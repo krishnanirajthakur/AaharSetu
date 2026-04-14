@@ -4,19 +4,18 @@ from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
-import google.generativeai as genai
 from dotenv import load_dotenv
 import PIL.Image
+from services.ai_engine import configure_gemini, generate_response
+from services.geo_service import get_context_dashboard, hydration_nudge, nearby_spots
 
 # Load environment variables
 load_dotenv()
 
-# Configure Gemini
-api_key = os.environ.get("GEMINI_API_KEY")
-if api_key:
-    genai.configure(api_key=api_key)
+# Configure Gemini (Phase 2)
+configure_gemini()
 
-app = FastAPI(title="AaharSetu Backend")
+app = FastAPI(title="AaharSetu Backend - Phase 2 Contextual Intelligence")
 
 app.add_middleware(
     CORSMiddleware,
@@ -38,33 +37,59 @@ async def analyze_food(
         return JSONResponse(status_code=500, content={"error": "GEMINI_API_KEY is not configured on the server."})
 
     try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        
-        contents = []
-        if prompt:
-            contents.append(prompt)
+        img = None
         if image:
             image_data = await image.read()
             img = PIL.Image.open(io.BytesIO(image_data))
-            contents.append(img)
-            
-        system_instruction = (
-            "You are a nutritional assistant for an app called AaharSetu. "
-            "The user will provide an image of food and/or a text description. "
-            "You must respond with two things formatted nicely in Markdown: \n"
-            "### 🍽️ Estimated Calories\n"
-            "[Your calorie estimate here]\n\n"
-            "### 🥗 Healthy Swap\n"
-            "[One clear, actionable healthy swap recommendation]"
-        )
         
-        contents.insert(0, system_instruction)
+        # Phase 2: Detect food options request and enrich with geo context
+        food_options = bool(prompt and ('food options' in prompt.lower() or 'restaurant' in prompt.lower() or 'eat out' in prompt.lower()))
         
-        response = model.generate_content(contents)
+        # Enrich prompt with geo context if food options
+        enriched_prompt = prompt
+        if food_options:
+            context = get_context_dashboard()
+            spots = context.get('healthy_spots', [])
+            enriched_prompt = f"{prompt}\n\nContext: Weather: {context['weather']}, Location: {context['location']}, Nearby healthy spots: {', '.join(spots)}"
         
-        return {"result": response.text}
+        result = generate_response(enriched_prompt or '', img, food_options)
+        return {"result": result}
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+
+@app.get("/api/context")
+async def get_context():
+    """Context Dashboard data (Phase 2)"""
+    try:
+        return get_context_dashboard()
+    except Exception as e:
+        return {
+            "error": "Context service unavailable",
+            "weather": "🌡️ N/A",
+            "location": "📍 Thane, Maharashtra",
+            "time": "🕒 N/A",
+            "healthy_spots": ["Service temporarily unavailable"]
+        }
+
+@app.post("/api/quick-action")
+async def quick_action(action: str = Form(...)):
+    """Quick Actions (Phase 2)"""
+    try:
+        if action == "hydration":
+            nudge = hydration_nudge()
+            return {"result": nudge or "🌤️ Pleasant weather in Thane. Regular hydration recommended!"}
+        elif action == "spots":
+            spots = nearby_spots()
+            result = "**Nearby Healthy Spots:**\\n" + "\\n".join(f"• {s}" for s in spots[:3])
+            return {"result": result}
+        elif action == "budget":
+            budget_prompt = "You are AaharSetu. Suggest 3 budget-friendly healthy Maharashtrian meals under ₹200. Include estimated calories, glycemic index notes, and healthy swaps."
+            result = generate_response(budget_prompt, None, False)
+            return {"result": result}
+        else:
+            return JSONResponse(status_code=400, content={"error": "Valid actions: hydration, spots, budget"})
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": "Quick action failed: " + str(e)})
 
 # Serve static files
 static_dir = os.path.join(os.path.dirname(__file__), "static")
@@ -76,7 +101,7 @@ async def serve_static(path: str):
     file_path = os.path.join(static_dir, path)
     if path and os.path.isfile(file_path):
         return FileResponse(file_path)
-    # Default to index.html for SPA behavior or root path
+    # Default to index.html for SPA
     return FileResponse(os.path.join(static_dir, "index.html"))
 
 if __name__ == "__main__":

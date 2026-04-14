@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AaharSetu | The Digital Apothecary</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f2f4f6",
+                        "surface-tint": "#006c4a",
+                        "surface-container-high": "#e6e8ea",
+                        "on-background": "#191c1e",
+                        "primary-fixed-dim": "#68dba9",
+                        "tertiary-fixed": "#ffdad7",
+                        "error": "#ba1a1a",
+                        "tertiary": "#9b3e3b",
+                        "primary": "#006948",
+                        "on-secondary-container": "#446d58",
+                        "on-surface-variant": "#3d4a42",
+                        "on-secondary-fixed-variant": "#264e3c",
+                        "on-secondary-fixed": "#002114",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "on-primary-container": "#f5fff7",
+                        "on-primary-fixed-variant": "#005137",
+                        "on-tertiary-fixed-variant": "#7f2928",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary-container": "#ba5551",
+                        "on-primary-fixed": "#002114",
+                        "inverse-primary": "#68dba9",
+                        "on-tertiary-fixed": "#410004",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#3e6753",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-surface": "#2d3133",
+                        "secondary-container": "#c0edd3",
+                        "primary-fixed": "#85f8c4",
+                        "secondary-fixed": "#c0edd3",
+                        "primary-container": "#00855d",
+                        "error-container": "#ffdad6",
+                        "background": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "surface-container-highest": "#e0e3e5",
+                        "outline-variant": "#bccac0",
+                        "outline": "#6d7a72",
+                        "surface-dim": "#d8dadc",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#a4d0b8",
+                        "surface": "#f7f9fb",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb3ae",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#fffbff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Public Sans"],
+                        "label": ["Public Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .vibe-gauge {
+            background: conic-gradient(from 180deg at 50% 50%, #006948 0deg, #00855d 120deg, #eceef0 120deg);
+            mask: radial-gradient(farthest-side, transparent 80%, white 0);
+            -webkit-mask: radial-gradient(farthest-side, transparent 80%, white 0);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased pb-32">
+<!-- TopAppBar Section -->
+<header class="fixed top-0 w-full z-50 bg-emerald-50/60 dark:bg-slate-950/60 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="portrait of a healthy smiling woman in her 30s with natural lighting and soft blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHzI2lHQG49GGg-rqWNTNZ7nrh0vJTzU0e9-6wRmqSmFr3KP3qCClXsc8lDlqadPuEhEBBu6vVAjiOIAP-cYLxETmiKwW-LVDGCMEP9sX68H-myXxsYqukQEVVkU8Y6P_w2lyIEIKztUDuOY0kCJuxZW6vnVem4QKbbBTF73sBytUm_CP0zJ4w68nB3MGORnP7ANuXp4ijf4G3GBUJsl-49bQg8jP2gyxSoA42f5Rq7Fd5vdXIlbYDqtngQPdI6qTbjY7MqM69ZQoV"/>
+</div>
+<span class="text-2xl font-black text-emerald-900 dark:text-emerald-100 font-headline tracking-tight">AaharSetu</span>
+</div>
+<button class="text-emerald-800 dark:text-emerald-400 hover:opacity-80 transition-opacity scale-95 active:duration-150">
+<span class="material-symbols-outlined text-2xl" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="mt-24 px-6 space-y-10">
+<!-- Hero Section: Health Score & Greeting -->
+<section class="space-y-6">
+<div class="flex flex-col">
+<span class="font-label text-sm uppercase tracking-widest text-primary font-bold opacity-70">Good Morning, Rohan</span>
+<h1 class="font-headline text-4xl font-extrabold text-on-surface mt-1 leading-tight">Ready to nourish<br/>your vitality?</h1>
+</div>
+<div class="bg-surface-container-lowest rounded-3xl p-8 flex items-center justify-between shadow-[0_-8px_24px_rgba(0,0,0,0.02)] border border-outline-variant/10">
+<div class="space-y-1">
+<p class="font-label text-xs font-bold uppercase text-outline">Metabolic Score</p>
+<p class="font-headline text-5xl font-black text-primary">82</p>
+<p class="text-sm text-on-surface-variant font-medium">Optimal Range</p>
+</div>
+<div class="relative w-24 h-24 flex items-center justify-center">
+<div class="absolute inset-0 vibe-gauge rounded-full rotate-[30deg]"></div>
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+</div>
+</section>
+<!-- Contextual Dashboard: Smart Triggers (Bento Grid Style) -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="font-headline text-xl font-bold">Smart Triggers</h2>
+<span class="text-primary text-sm font-bold">Live in Thane</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="col-span-2 bg-primary-container/10 p-6 rounded-2xl border border-primary/5 flex items-start gap-4">
+<div class="p-3 bg-primary-container rounded-xl text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="thermostat">thermostat</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface">Hot in Thane</h3>
+<p class="text-sm text-on-surface-variant">Suggesting 500ml extra hydration for metabolic cooling.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl space-y-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="calendar_month">calendar_month</span>
+<div>
+<h4 class="font-bold text-sm">Meeting in 15m</h4>
+<p class="text-xs text-on-surface-variant">Quick Snack Mode enabled.</p>
+</div>
+</div>
+<div class="bg-secondary-container/30 p-5 rounded-2xl space-y-3">
+<span class="material-symbols-outlined text-secondary" data-icon="directions_run">directions_run</span>
+<div>
+<h4 class="font-bold text-sm">5km Run detected</h4>
+<p class="text-xs text-on-surface-variant">Post-workout protein nudge.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- The Brain (Chat Interface) -->
+<section class="space-y-4">
+<div class="glass-panel p-6 rounded-3xl border border-primary/10 shadow-xl">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm" data-icon="psychology">psychology</span>
+</div>
+<span class="font-headline font-bold">Digital Apothecary AI</span>
+</div>
+<div class="space-y-4 mb-6">
+<div class="bg-surface-container-low rounded-2xl rounded-tl-none p-4 max-w-[85%]">
+<p class="text-sm">I see you're planning lunch. Want to scan your plate for an instant macro-check?</p>
+</div>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-highest/50 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-primary text-sm" placeholder="Ask anything about your meal..." type="text"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex gap-2">
+<button class="p-2 text-primary">
+<span class="material-symbols-outlined" data-icon="add_a_photo">add_a_photo</span>
+</button>
+<button class="p-2 bg-primary text-white rounded-xl">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Smart Swap Section: The Nudge -->
+<section class="space-y-4">
+<h2 class="font-headline text-xl font-bold">Smart Swaps</h2>
+<div class="bg-surface-container-low rounded-3xl p-1 overflow-hidden">
+<div class="flex items-center p-4 gap-4">
+<div class="flex-1 space-y-1">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase text-tertiary">Avoid</span>
+<div class="h-px flex-1 bg-tertiary/10"></div>
+</div>
+<p class="font-bold">Vada Pav</p>
+</div>
+<div class="p-2 bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined text-outline" data-icon="swap_horiz">swap_horiz</span>
+</div>
+<div class="flex-1 space-y-1 text-right">
+<div class="flex items-center gap-2 justify-end">
+<div class="h-px flex-1 bg-primary/10"></div>
+<span class="text-xs font-bold uppercase text-primary">Better</span>
+</div>
+<p class="font-bold">Moong Dal Chilla</p>
+</div>
+</div>
+<div class="bg-primary p-4 text-white flex justify-between items-center">
+<span class="text-xs font-medium">Saves 240kcal &amp; adds 12g Protein</span>
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Hyper-Local Footer: Eco-Impact -->
+<footer class="pt-8 pb-12 border-t border-outline-variant/10 space-y-8">
+<div class="bg-emerald-900 rounded-3xl p-6 text-white relative overflow-hidden">
+<div class="relative z-10 space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="eco">eco</span>
+<h3 class="font-headline font-bold">Your Eco Impact</h3>
+</div>
+<p class="text-sm opacity-80">By opting for local produce in Thane this week, you've saved 12kg of CO2 emissions.</p>
+<div class="flex gap-4">
+<div class="flex-1 bg-white/10 rounded-2xl p-3">
+<p class="text-xs opacity-60">Water Saved</p>
+<p class="text-lg font-bold">42L</p>
+</div>
+<div class="flex-1 bg-white/10 rounded-2xl p-3">
+<p class="text-xs opacity-60">Local Support</p>
+<p class="text-lg font-bold">100%</p>
+</div>
+</div>
+</div>
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/20 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+</div>
+<a class="flex items-center justify-between p-6 bg-surface-container-high rounded-3xl text-on-surface transition-colors hover:bg-surface-container-highest" href="#">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="kitchen">kitchen</span>
+<div>
+<p class="font-bold">Find Community Fridge</p>
+<p class="text-xs text-on-surface-variant">Located in Thane West</p>
+</div>
+</div>
+<span class="material-symbols-outlined" data-icon="map">map</span>
+</a>
+<p class="text-center text-[10px] uppercase tracking-widest font-bold text-outline py-4">
+                AaharSetu Digital Apothecary v2.4
+            </p>
+</footer>
+</main>
+<!-- BottomNavBar Section -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-t-[2rem] z-50 shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center bg-emerald-100 dark:bg-emerald-900/40 text-emerald-900 dark:text-emerald-100 rounded-full w-14 h-14 p-2 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest mt-0.5">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 hover:text-emerald-600 dark:hover:text-emerald-300" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest mt-0.5">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 hover:text-emerald-600 dark:hover:text-emerald-300" href="#">
+<span class="material-symbols-outlined" data-icon="add_a_photo">add_a_photo</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest mt-0.5">Log</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 hover:text-emerald-600 dark:hover:text-emerald-300" href="#">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest mt-0.5">Swaps</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 hover:text-emerald-600 dark:hover:text-emerald-300" href="#">
+<span class="material-symbols-outlined" data-icon="eco">eco</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest mt-0.5">Impact</span>
+</a>
+</nav>
+<!-- FAB for quick action (Dashboard Only) -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105 active:scale-90">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>
