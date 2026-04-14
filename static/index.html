@@ -3,124 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AaharSetu Phase 3 | Advanced Analytics</title>
+    <title>AaharSetu Phase 4 Ecosystem</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#10b981">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Outfit'] }, colors: { brand: { 50: '#ecfdf5', 100: '#d1fae5', 500: '#10b981', 600: '#059669', 900: '#064e3b' } }, animation: { 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite' } } } };
-    </script>
-    
-    <!-- Markdown & Chart.js CDN Phase 3 -->
+    <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Outfit'] } , colors: { brand: { 50: '#ecfdf5', 500: '#10b981', 600: '#059669' } } } } };</script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <style>
         .glass-panel { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
-        .msg-content h3 { font-weight: 600; color: #064e3b; } .msg-content p { margin-bottom: 0.5rem; color: #334155; }
-        .remove-image-btn { position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; transition: transform 0.2s; }
-        .remove-image-btn:hover { transform: scale(1.1); }
-        ::-webkit-scrollbar { width: 6px; background: transparent; } ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        /* High Contrast Mode Phase 3 */
-        .high-contrast body { filter: contrast(1.5) brightness(1.1); --bg: black; --text: white; --card: #333; background: var(--bg); color: var(--text); }
-        .high-contrast .glass-panel { background: rgba(51,51,51,0.95); border-color: white; }
-        .high-contrast .quick-btn { background: #ff4081; }
-        /* Streak Chart */
-        #streakChart { height: 150px; }
+        .high-contrast { filter: contrast(1.6) brightness(1.1); background: #000 !important; color: #fff !important; }
+        .high-contrast .glass-panel { background: rgba(50,50,50,0.95); border-color: #fff; }
+        .quick-btn { @apply bg-gradient-to-r from-brand-500 to-emerald-500 text-white py-2 px-4 rounded-xl font-medium text-sm shadow-lg hover:shadow-xl transition-all; }
+        #streakChart { height: 140px; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-brand-50 to-emerald-100 min-h-screen p-4 overflow-hidden">
-    
-    <main class="max-w-md mx-auto glass-panel rounded-3xl flex flex-col h-[95vh] shadow-2xl">
+<body class="bg-gradient-to-br from-brand-50 to-emerald-100 min-h-screen p-4 text-slate-800">
+    <main class="glass-panel max-w-md mx-auto rounded-3xl flex flex-col h-[95vh] shadow-2xl overflow-hidden">
         
-        <!-- Header + Toggles -->
-        <header class="p-4 border-b flex items-center justify-between bg-white/50">
+        <header class="p-4 border-b bg-white/50 flex items-center justify-between">
             <div class="flex gap-3 items-center">
-                <div class="h-10 w-10 bg-gradient-to-tr from-brand-500 to-emerald-400 rounded-2xl flex items-center justify-center text-white shadow-lg">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" />
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg">AaharSetu Phase 3</h1>
-                    <p class="text-xs text-brand-600 font-semibold">Analytics + Regional</p>
-                </div>
+                <div class="h-10 w-10 bg-gradient-to-tr from-brand-500 to-emerald-400 rounded-2xl flex items-center justify-center text-white shadow-lg">🍽️</div>
+                <h1 class="font-bold text-lg">AaharSetu v4.0</h1>
             </div>
-            <div class="flex gap-1">
-                <button id="highContrastBtn" aria-label="Toggle high contrast" class="p-1.5 bg-slate-200 rounded-lg hover:bg-slate-300">
-                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
-                    </svg>
-                </button>
-                <select id="langSelect" aria-label="Select language" class="text-xs bg-white border rounded">
-                    <option>English</option>
+            <div class="flex gap-2">
+                <button id="highContrastBtn" aria-label="High contrast" class="p-2 rounded-lg hover:bg-slate-200">HC</button>
+                <select id="langSelect" aria-label="Language" class="border rounded p-1 text-sm">
+                    <option>EN</option>
                     <option>मराठी</option>
                     <option>हिंदी</option>
                 </select>
+                <button id="groceryBtn" class="quick-btn text-xs px-2" aria-label="Grocery list">🛒 List</button>
+                <button onclick="quickAction('donate')" class="quick-btn text-xs px-2" aria-label="Donate excess">♻️ Donate</button>
             </div>
         </header>
 
-        <!-- Context Dashboard -->
-        <section id="contextDashboard" class="p-3 border-b bg-gradient-to-r from-brand-50 to-emerald-50" aria-label="Context dashboard" role="region">
-            <h2 class="text-xs font-semibold uppercase mb-2 px-1 tracking-wide">Context</h2>
-            <div id="dashboardItems" class="grid grid-cols-2 gap-2 text-sm"></div>
+        <section id="contextDashboard" class="p-3 border-b" aria-label="Context" role="region">
+            <h2 class="text-xs uppercase font-semibold mb-2 px-1 tracking-wide">Context</h2>
+            <div id="dashboardItems" class="grid grid-cols-2 gap-2 text-sm font-medium"></div>
         </section>
 
-        <!-- Quick Actions -->
-        <section class="p-3 border-b bg-white/60" aria-label="Quick actions" role="toolbar">
-            <h3 class="text-xs font-semibold uppercase mb-3 px-1 tracking-wide">Quick</h3>
+        <section class="p-3 border-b" aria-label="Quick actions" role="toolbar">
+            <h3 class="text-xs uppercase font-semibold mb-3 px-1 tracking-wide">Actions</h3>
             <div class="grid grid-cols-3 gap-2">
-                <button onclick="quickAction('hydration')" class="py-2 px-3 bg-gradient-to-r from-brand-500 to-emerald-500 text-white rounded-xl font-medium text-xs shadow-lg hover:shadow-xl transition-all" aria-label="Hydration check">💧 Hydration</button>
-                <button onclick="quickAction('spots')" class="py-2 px-3 bg-gradient-to-r from-brand-500 to-emerald-500 text-white rounded-xl font-medium text-xs shadow-lg hover:shadow-xl transition-all" aria-label="Nearby spots">📍 Spots</button>
-                <button onclick="quickAction('budget')" class="py-2 px-3 bg-gradient-to-r from-brand-500 to-emerald-500 text-white rounded-xl font-medium text-xs shadow-lg hover:shadow-xl transition-all" aria-label="Budget meals">💰 Budget</button>
+                <button onclick="quickAction('hydration')" class="quick-btn" aria-label="Hydration">💧 Hydration</button>
+                <button onclick="quickAction('spots')" class="quick-btn" aria-label="Spots">📍 Spots</button>
+                <button onclick="quickAction('budget')" class="quick-btn" aria-label="Budget">💰 Budget</button>
             </div>
         </section>
 
-        <!-- Phase 3 Nutrition Streak -->
-        <section class="p-3 border-b bg-gradient-to-r from-purple-50 to-indigo-50" aria-label="Nutrition streak chart" role="img">
-            <div class="flex justify-between items-center mb-2">
-                <h3 class="text-sm font-semibold">Nutrition Streak</h3>
-                <button onclick="logCurrentMeal()" class="text-xs bg-brand-500 text-white px-2 py-1 rounded-full" aria-label="Log current streak meal">Log Meal</button>
+        <section class="p-3 border-b bg-gradient-to-r from-green-50 to-blue-50" aria-label="Nutrition streak" role="img">
+            <div class="flex justify-between mb-2">
+                <h3 class="text-sm font-semibold">Streak</h3>
+                <button onclick="logMeal()" class="text-xs bg-brand-500 text-white px-3 py-1 rounded-full shadow" aria-label="Log meal">Log</button>
             </div>
-            <canvas id="streakChart" aria-label="Line chart showing 7-day nutrition streak. Higher score better healthy choices."></canvas>
+            <canvas id="streakChart" aria-label="7-day nutrition streak line chart, green high healthy."></canvas>
         </section>
 
-        <!-- Chat -->
-        <div id="chatBox" class="flex-1 overflow-y-auto p-4 gap-4 flex flex-col" style="scroll-behavior: smooth;">
-            <div class="flex gap-2 max-w-[90%] self-start">
-                <div class="h-8 w-8 bg-gradient-to-tr from-brand-500 to-emerald-400 rounded-full flex items-center justify-center text-white shadow-sm self-end mb-1">🤖</div>
-                <div class="bg-white px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm border border-slate-100 text-sm leading-relaxed bg-opacity-90">
-                    Namaste! Phase 3: Track streaks, regional nutrition, translations. Log meals for analytics! 🥗
-                </div>
-            </div>
-        </div>
+        <div id="chatBox" class="flex-1 p-4 overflow-y-auto gap-4 flex flex-col" style="scroll-behavior:smooth;"></div>
 
-        <!-- Input -->
         <div class="p-3 bg-white/70 border-t">
-            <div id="imagePreviewContainer" class="hidden mb-3 px-1">
-                <div class="image-preview-wrapper">
-                    <img id="imagePreview" src="" alt="Food preview" class="h-20 w-20 rounded-xl border-2 shadow-sm object-cover">
-                    <div id="removeImageBtn" class="remove-image-btn" aria-label="Remove image">×</div>
+            <div id="imagePreviewContainer" class="hidden mb-3">
+                <div class="relative">
+                    <img id="imagePreview" src="" alt="Preview" class="h-20 w-20 rounded-xl border-2 shadow object-cover">
+                    <div id="removeImageBtn" class="absolute -top-2 -right-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg" aria-label="Remove">×</div>
                 </div>
             </div>
             <form id="chatForm" class="flex gap-2 items-end">
-                <div class="flex-1 bg-white rounded-3xl border shadow-inner focus-within:ring-2 pl-2 pr-1 py-1">
-                    <label for="imageInput" class="p-2 text-slate-400 hover:text-brand-500 rounded-full cursor-pointer" aria-label="Upload image">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                    </label>
-                    <input type="file" id="imageInput" accept="image/*" class="hidden">
-                    <textarea id="textInput" rows="1" placeholder="Describe meal or ask..." class="flex-1 bg-transparent border-0 p-2 resize-none max-h-24" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
-                </div>
-                <button type="submit" id="sendBtn" class="bg-brand-500 text-white p-3.5 rounded-full shadow-lg hover:bg-brand-600" aria-label="Send">➤</button>
+                <label for="imageInput" class="p-2 hover:bg-slate-100 rounded-full cursor-pointer text-slate-400 hover:text-brand-500" aria-label="Upload">
+                    📷
+                </label>
+                <input type="file" id="imageInput" accept="image/*" class="hidden">
+                <textarea id="textInput" placeholder="Meal or query..." class="flex-1 border rounded-3xl p-3 resize-none max-h-24" oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"></textarea>
+                <button type="submit" id="sendBtn" class="bg-brand-500 text-white p-3 rounded-full shadow-lg hover:bg-brand-600" aria-label="Send">➤</button>
             </form>
         </div>
     </main>

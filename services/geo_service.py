@@ -1,18 +1,18 @@
 import os
 import requests
-from google.maps import Client as GoogleMapsClient
+import googlemaps
 from typing import Dict, List, Optional
 import random
 from datetime import datetime
 
-def get_maps_client() -> Optional[GoogleMapsClient]:
+def get_maps_client() -> Optional[googlemaps.Client]:
     """Initialize Google Maps client with env var."""
     api_key = os.environ.get('GOOGLE_MAPS_API_KEY')
     if not api_key:
         print('Warning: GOOGLE_MAPS_API_KEY not set, Maps features disabled.')
         return None
     try:
-        return GoogleMapsClient(key=api_key)
+        return googlemaps.Client(key=api_key)
     except Exception as e:
         print(f'Maps client error (quota?): {e}. Using fallback.')
         return None
@@ -34,7 +34,7 @@ def get_weather_thane() -> Dict[str, float]:
     temp = round(random.uniform(25, 35), 1)
     return {'temp': temp, 'condition': 'Sunny' if temp > 28 else 'Pleasant'}
 
-def get_healthy_restaurants_near_thane(client: Optional[GoogleMapsClient] = None, num: int = 3) -> List[str]:
+def get_healthy_restaurants_near_thane(client: Optional[googlemaps.Client] = None, num: int = 3) -> List[str]:
     """Fetch 3 healthy restaurants near Thane."""
     if not client:
         return ['Fallback: Healthy spots unavailable']
@@ -49,7 +49,7 @@ def get_healthy_restaurants_near_thane(client: Optional[GoogleMapsClient] = None
     except:
         return ['Fallback quota']
 
-def get_community_fridges(client: Optional[GoogleMapsClient] = None) -> List[str]:
+def get_community_fridges(client: Optional[googlemaps.Client] = None) -> List[str]:
     """Phase 4: Community fridges/NGO in Thane/Mumbai."""
     if not client:
         return ['Thane Community Fridge - Station Road', 'NGO Drop - Ghodbunder']

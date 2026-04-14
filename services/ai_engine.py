@@ -15,28 +15,18 @@ def generate_response(prompt: str, image: Optional[Image.Image] = None, user_que
         model = genai.GenerativeModel('gemini-1.5-flash')
         
         system_instruction = (
-            'You are AaharSetu AI. Maharashtrian Nutrition DB: Poha GL~15 GI~70 4g fiber, Misal GL~12 GI~55 high protein, '
-            'Jowar Bhakri fiber 8g/100g GI~50, Bajra Bhakri fiber 10g/100g low GL. '
-            'Labels: Hidden sugars (maltodextrin, HFCS) -> "**⚠️ HEALTH WARNING: Hidden sugars! Swap natural**". '
-            'Budget <₹200 Thane seasonal tag. '
-            'Format: ### 🍽️ Calories [est] ### 🥗 Swap [action] ### 📊 Notes (fiber/GL/budget/warning)'
+            'You are AaharSetu Phase 4. Nutrition DB: Poha GL15 GI70 fiber4g, Misal GL12 GI55 protein, Jowar Bhakri fiber8g GI50, '
+            'Bajra fiber10g lowGL. Hidden sugars (maltodextrin HFCS dextrose): "**⚠️ ECO LOW Score 30/100 - Swap natural**". '
+            'Local Poha 90/100 eco, imported cereal 40/100. Busy schedule: Quick fuel makhana/fruit. Eco Score/meal. '
+            'Format: ### 🍽️ Calories ### 🥗 Swap ### 📊 Notes(fiber/GL/budget) ### 🌿 Eco: XX/100'
         )
         
-        contents = [system_instruction]
-        if prompt:
-            contents.append(prompt)
-        if image:
-            contents.append(image)
-        
+        contents = [system_instruction, prompt or '', image or '']
         response = model.generate_content(contents)
-        result = response.text
-        
-        result += hydration_nudge()
-        
+        result = response.text + hydration_nudge()
         if user_query_contains_food_options:
-            result += '\n\n📍 Check Nearby Spots!'
-        
+            result += '\n📍 Spots!'
         return result
     
     except Exception as e:
-        return f'AI error: {str(e)}. Retry.'
+        return f'Error: {e}'
