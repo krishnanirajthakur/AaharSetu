@@ -1,17 +1,21 @@
-# AaharSetu Phase 2 ✅ COMPLETE
+# Phase 4 Ecosystem TODO - Final Production
 
-## Final Status
-### 1. ✅ Setup & Dependencies
-### 2. ✅ Services Created (geo + ai_engine)
-### 3. ✅ Backend (main.py refactored + new endpoints)
-### 4. ✅ Frontend (dashboard, quick actions, accessibility)
-### 5. ✅ Documentation (README.md updated)
-### 6. ✅ Testing & Verified
-   - Dependencies installed
-   - Repo size ~400KB (dir) 
-   - Backend/UI ready: `uvicorn main:app --reload`
-   - Docker: `docker build -t aaharsetu . && docker run -p 8080:8080 -e GEMINI_API_KEY=yourkey -e GOOGLE_MAPS_API_KEY=yourkey ...`
-   - Cloud Run deploy instructions in README
+## Steps
+### 1. Automation [ ]
+- Frontend localStorage calendar dummy, 'meeting overlap' snack suggest.
+- /api/grocery-list Gemini checklist.
 
-**All Phase 2 requirements met: GCP security (env/try-except), contextual nudge, Maps Thane, Maharashtrian Gemini, dashboard/actions, a11y, <500KB.**
+### 2. Social/Eco [ ]
+- geo_service add community_fridges list (Maps keyword).
+- Gemini eco score in prompt.
 
+### 3. Polish [ ]
+- JS global error handler.
+- Clean unused code/CSS.
+- SW IndexedDB? LocalStorage fine, cache all.
+
+### 4. README/Submission [ ]
+- Update README future/impact.
+- Submission desc ready.
+
+Progress: 1

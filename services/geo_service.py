@@ -35,21 +35,33 @@ def get_weather_thane() -> Dict[str, float]:
     return {'temp': temp, 'condition': 'Sunny' if temp > 28 else 'Pleasant'}
 
 def get_healthy_restaurants_near_thane(client: Optional[GoogleMapsClient] = None, num: int = 3) -> List[str]:
-    """Fetch 3 healthy restaurants near Thane using Places API."""
+    """Fetch 3 healthy restaurants near Thane."""
     if not client:
-        return ['Fallback: Healthy spots unavailable (check API key)']
-    
+        return ['Fallback: Healthy spots unavailable']
     try:
         places_result = client.places_nearby(
-            location=(19.2183, 72.9781),  # Thane coords
+            location=(19.2183, 72.9781),
             radius=5000,
             type='restaurant',
             keyword='healthy vegetarian'
         )
         return [place.name for place in places_result.results[:num]]
-    except Exception as e:
-        print(f'Places API error (quota?): {e}')
-        return ['Fallback: Check API quota']
+    except:
+        return ['Fallback quota']
+
+def get_community_fridges(client: Optional[GoogleMapsClient] = None) -> List[str]:
+    """Phase 4: Community fridges/NGO in Thane/Mumbai."""
+    if not client:
+        return ['Thane Community Fridge - Station Road', 'NGO Drop - Ghodbunder']
+    try:
+        places_result = client.places_nearby(
+            location=(19.2183, 72.9781),
+            radius=10000,
+            keyword='community fridge OR food donation OR NGO food bank'
+        )
+        return [place.name for place in places_result.results[:3]]
+    except:
+        return ['Fallback: Search "community fridge Thane"']
 
 def get_context_dashboard() -> Dict:
     """Full context for dashboard."""

@@ -1,27 +1,25 @@
 import os
-import google.generativeai as genai  # Note: Migrate to google.genai per warning when ready
+import google.generativeai as genai
 from typing import Optional
 from PIL import Image
-from .geo_service import hydration_nudge  # No get_weather_thane needed
+from .geo_service import hydration_nudge
 
 def configure_gemini():
-    """Configure Gemini with env var."""
     api_key = os.environ.get('GEMINI_API_KEY')
     if not api_key:
         raise ValueError('GEMINI_API_KEY required')
     genai.configure(api_key=api_key)
 
 def generate_response(prompt: str, image: Optional[Image.Image] = None, user_query_contains_food_options: bool = False) -> str:
-    """Gemini response with Phase 2: Maharashtrian focus + hydration nudge."""
     try:
         model = genai.GenerativeModel('gemini-1.5-flash')
         
-        # Phase 2 System Prompt
         system_instruction = (
-            'You are AaharSetu AI, expert in Maharashtrian cuisine. '
-            'Recognize staples: Poha (GI~70, moderate carbs), Misal (high protein, GI~55), Bhakri (low GI~50, high fiber). '
-            'Provide specific nutritional advice with glycemic index notes. '
-            'Format: ### 🍽️ Estimated Calories\n[estimate]\n\n### 🥗 Healthy Swap\n[actionable swap]'
+            'You are AaharSetu AI. Maharashtrian Nutrition DB: Poha GL~15 GI~70 4g fiber, Misal GL~12 GI~55 high protein, '
+            'Jowar Bhakri fiber 8g/100g GI~50, Bajra Bhakri fiber 10g/100g low GL. '
+            'Labels: Hidden sugars (maltodextrin, HFCS) -> "**⚠️ HEALTH WARNING: Hidden sugars! Swap natural**". '
+            'Budget <₹200 Thane seasonal tag. '
+            'Format: ### 🍽️ Calories [est] ### 🥗 Swap [action] ### 📊 Notes (fiber/GL/budget/warning)'
         )
         
         contents = [system_instruction]
@@ -33,14 +31,12 @@ def generate_response(prompt: str, image: Optional[Image.Image] = None, user_que
         response = model.generate_content(contents)
         result = response.text
         
-        # Append nudge
         result += hydration_nudge()
         
         if user_query_contains_food_options:
-            result += '\n\n📍 **Pro Tip**: Check Quick Actions > Spots for healthy options near Thane!'
+            result += '\n\n📍 Check Nearby Spots!'
         
         return result
     
     except Exception as e:
-        return f'AI service error (quota?): {str(e)}. Please try again.'
-
+        return f'AI error: {str(e)}. Retry.'
